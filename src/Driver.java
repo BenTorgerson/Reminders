@@ -1,3 +1,7 @@
+// Allows users to add new reminders for themselves, and allows users to view reminders for any date.
+// Todo: error handling
+// Written by Ben Torgerson
+
 import java.sql.*;
 import java.util.Scanner;
 import java.time.*;
@@ -16,7 +20,7 @@ public class Driver {
 		// Reminders today:
 		printTodaysReminders(myStmt, userName);
 		
-		// View future? or add new
+		// View future reminders or add new ones
 		while (true) {
 			System.out.println("Would you like to 'add' new reminders, 'view' current reminders, or 'close' the program?");
 			
@@ -37,7 +41,7 @@ public class Driver {
 		
 		System.out.println("Thank you for using reminderApp, we hope to see you soon!");
 	}
-	
+	// Logs the user in, or allows them to create an account and then logs them in.
 	public static String logIn(Statement myStmt, Scanner scanner) throws SQLException {
 		String userName = "";
 		String password = "";
@@ -93,7 +97,7 @@ public class Driver {
 		}
 		return userName;
 	}
-	
+	// Prints all of the users' reminders for that day when they log in
 	public static void printTodaysReminders(Statement myStmt, String userName) throws SQLException {
 		LocalDate todaysDate = java.time.LocalDate.now();
 		String currentDate = todaysDate.toString();
@@ -116,7 +120,7 @@ public class Driver {
 			System.out.println(myResults.getString("time") + ": " + myResults.getString("reminder"));
 		}
 	}
-	
+	// Allows users to view reminders for any specific day
 	public static void viewReminders(Statement myStmt, Scanner scanner, String userName) throws SQLException {
 		System.out.println("Please give the day, month, and year of the reminders you want to look at(DDMMYYYY), or 'all'.");
 		String answer = scanner.nextLine();
@@ -144,7 +148,7 @@ public class Driver {
 			}
 		}
 	}
-	
+	// Allows users to add in a reminder for any specific day.
 	public static void addReminders(Statement myStmt, Scanner scanner, String userName) throws SQLException {
 		
 		System.out.println("When would you like to add this reminder? (Format: DDMMYYYY)");
@@ -164,7 +168,7 @@ public class Driver {
 		
 		System.out.println("Reminder added.");
 	}
-	
+	// takes in the userName, and gets the userID associated with it.
 	public static int getUserID(Statement myStmt, String userName) throws SQLException {
 		ResultSet user = myStmt.executeQuery("select user_id from users where user_name = " + "'" + userName + "'");
 		user.next();
