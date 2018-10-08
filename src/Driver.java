@@ -9,7 +9,7 @@ import java.time.*;
 public class Driver {
 
 	public static void main(String[] args) throws SQLException {
-		Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/reminderapp?autoReconnect=true&useSSL=false", "Ben", "Sgtbent");
+		Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/reminderapp?autoReconnect=true&useSSL=false", "USER", "PASS");
 		Statement myStmt = myConn.createStatement();
 		Scanner scanner = new Scanner(System.in);
 		
